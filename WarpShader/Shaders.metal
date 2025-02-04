@@ -19,6 +19,8 @@ struct FS_UNIFORM
     float time;
     float2 resolution;
     float warp;
+    float fov;
+    float tail_length;
 };
 
 constant float GAMMA = 2.2;
@@ -48,7 +50,7 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
     
     float offset = uniforms.time * uniforms.warp;
     float speed2 = 1.89 * uniforms.warp;
-    float speed = speed2 + 0.1;
+    float speed = uniforms.tail_length + 0.1;
     offset *= 1.5;
     
     float3 col = float3(0);
@@ -99,12 +101,15 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
                                 half4 color,
                                 float time,
                                 float2 size,
-                                float speed) {
+//                                float speed,
+                                float fov,
+                                float tail_length) {
     FS_UNIFORM uniforms;
     uniforms.time = time;
     uniforms.position = position;
     uniforms.resolution = size;
-    uniforms.warp = 0.4;
+    uniforms.warp = fov;
+    uniforms.tail_length = tail_length;
     float4 outColor = interstellarFragment(uniforms);
     return half4(outColor);
 //    return half4(position.x / size.x, position.y / size.y, sin(time), 1.0);
