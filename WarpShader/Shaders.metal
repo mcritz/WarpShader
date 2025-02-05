@@ -19,6 +19,7 @@ struct FS_UNIFORM
     float time;
     float2 resolution;
     float warp;
+    float speed;
     float fov;
     float tail_length;
 };
@@ -46,10 +47,10 @@ float3 ToGamma(float3 col) {
 float4 interstellarFragment(FS_UNIFORM uniforms) {
     float3 ray;
     ray.xy = 2.0 * (uniforms.position - uniforms.resolution * 0.5) / uniforms.resolution.x;
-    ray.z = 1.0;
+    ray.z = uniforms.warp;
     
-    float offset = uniforms.time * uniforms.warp;
-    float speed2 = 1.89 * uniforms.warp;
+    float offset = uniforms.time * uniforms.speed;
+    float speed2 = 1.89 * uniforms.speed;
     float speed = uniforms.tail_length + 0.1;
     offset *= 1.5;
     
@@ -88,29 +89,20 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
     return float4(ToGamma(col), 1.0);
 }
 
-
-//fragment
-//float4 fs_main(
-//    FS_INPUT In [[stage_in]],
-//    constant FS_UNIFORM& uniform [[buffer(16)]]) {
-//    float4 col2 = interstellarFragment(In, uniform);
-//    return col2;
-//}
-
 [[ stitchable ]] half4 starWarp(float2 position,
                                 half4 color,
                                 float time,
                                 float2 size,
-//                                float speed,
+                                float speed,
                                 float fov,
                                 float tail_length) {
     FS_UNIFORM uniforms;
     uniforms.time = time;
     uniforms.position = position;
     uniforms.resolution = size;
+    uniforms.speed = speed;
     uniforms.warp = fov;
     uniforms.tail_length = tail_length;
     float4 outColor = interstellarFragment(uniforms);
     return half4(outColor);
-//    return half4(position.x / size.x, position.y / size.y, sin(time), 1.0);
 }
