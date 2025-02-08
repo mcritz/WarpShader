@@ -13,53 +13,39 @@ struct ContentView: View {
     @State private var fov: Double = 0.92
     @State private var bifrost: Double = 1.1
     @State private var tails: Double = 0.52
+    @State private var starFieldOffset = CGPoint(x: 0.5, y: 0.5)
     
     // App UI
     @State private var isWarpSpeed = false
     @State private var showControls = false
-    @State private var starFieldOffset = CGPoint(x: 0.5, y: 0.5)
     
     func toggleWarpSpeed() {
         if isWarpSpeed {
             withAnimation(.easeInOut(duration: 2.3)) {
                 fov = 0.92
                 tails = 0.52
+                bifrost = 1.1
             }
             withAnimation(.easeOut(duration: 0.7)) {
                 speed   = 0.0
-                bifrost = 1.1
             }
         } else {
             withAnimation(.easeInOut(duration: 2.3)) {
                 fov = 0.46
                 tails = 3.5
+                bifrost = 0.74
             }
             withAnimation(.easeOut(duration: 0.7)) {
                 speed   = 1.75
-                bifrost = 0.74
             }
         }
         isWarpSpeed.toggle()
     }
     
-    let startTime = Date.now
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            GeometryReader { geometryProxy in
-                TimelineView(.animation) { timelineContext in
-                    let time = startTime.distance(to: timelineContext.date)
-                    Rectangle()
-                        .colorEffect(ShaderLibrary.starWarp(
-                            .float(time),
-                            .float2(geometryProxy.size),
-                            .float(speed), // zippity-zoom!
-                            .float(fov), // More like “Z-space depth modifier”
-                            .float(bifrost), // “bifrost” rainbow separation
-                            .float(tails), // star streak length
-                            .float2(starFieldOffset) // change heading
-                        ))
-                }
-            }
+            Rectangle()
+                .warp(speed: speed, fov: fov, bifrost: bifrost, tails: tails, starFieldOffset: starFieldOffset)
             if showControls {
                 VStack {
                     HStack {
