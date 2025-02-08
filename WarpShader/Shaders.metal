@@ -49,18 +49,16 @@ float3 ToGamma(float3 col) {
 float4 interstellarFragment(FS_UNIFORM uniforms) {
     float3 ray;
     ray.xy = 2.0 * (uniforms.position - uniforms.resolution * 0.5) / uniforms.resolution.x;
-//    ray.x += 1.0 - uniforms.offset.x * 2.0;
-//    ray.y -= 1.0 - uniforms.offset.y * 2.0;
+    ray.x += 1.0 - uniforms.offset.x * 2.0;
+    ray.y -= 1.0 - uniforms.offset.y * 2.0;
     ray.z = uniforms.warp;
     
     float offset = uniforms.time * uniforms.speed;
     float speed2 = 1.89 * uniforms.speed;
-//    float speed2 = uniforms.tail_length * uniforms.speed;
     float speed = uniforms.tail_length + 0.1;
     offset *= 1.5;
     
     float3 col = float3(0);
-//    float3 stp = ray/max(abs(ray.x), abs(ray.y));
     float3 stp = (uniforms.speed == 0) ? ray / 1.0 : (ray / max(abs(ray.x), abs(ray.y)));
     float3 pos = 2.0 * stp + 0.5;
     

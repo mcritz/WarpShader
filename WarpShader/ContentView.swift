@@ -17,26 +17,26 @@ struct ContentView: View {
     // App UI
     @State private var isWarpSpeed = false
     @State private var showControls = false
-    @State private var starFieldOffset = CGPoint(x: 0.0, y: 0.0)
+    @State private var starFieldOffset = CGPoint(x: 0.5, y: 0.5)
     
     func toggleWarpSpeed() {
         if isWarpSpeed {
             withAnimation(.easeInOut(duration: 2.3)) {
                 fov = 0.92
-                bifrost = 1.1
                 tails = 0.52
             }
             withAnimation(.easeOut(duration: 0.7)) {
                 speed   = 0.0
+                bifrost = 1.1
             }
         } else {
             withAnimation(.easeInOut(duration: 2.3)) {
                 fov = 0.46
-                bifrost = 0.74
                 tails = 3.5
             }
             withAnimation(.easeOut(duration: 0.7)) {
                 speed   = 1.75
+                bifrost = 0.74
             }
         }
         isWarpSpeed.toggle()
@@ -56,7 +56,7 @@ struct ContentView: View {
                             .float(fov), // More like “Z-space depth modifier”
                             .float(bifrost), // “bifrost” rainbow separation
                             .float(tails), // star streak length
-                            .float2(starFieldOffset)
+                            .float2(starFieldOffset) // change heading
                         ))
                 }
             }
@@ -66,6 +66,7 @@ struct ContentView: View {
                         Text("Speed")
                         Spacer()
                         Text(speed.formatted())
+                            .textSelection(.enabled)
                     }
                     Slider(value: $speed, in: 0...5)
                     
@@ -75,6 +76,7 @@ struct ContentView: View {
                         Text("FOV")
                         Spacer()
                         Text(fov.formatted())
+                            .textSelection(.enabled)
                     }
                     Slider(value: $fov, in: 0.3...2.0)
                     
@@ -84,6 +86,7 @@ struct ContentView: View {
                         Text("Bifröst")
                         Spacer()
                         Text(bifrost.formatted())
+                            .textSelection(.enabled)
                     }
                     Slider(value: $bifrost, in: 0.0...2.0)
                     
@@ -93,6 +96,7 @@ struct ContentView: View {
                         Text("Tails")
                         Spacer()
                         Text(tails.formatted())
+                            .textSelection(.enabled)
                     }
                     Slider(value: $tails, in: 0.1...8.0)
                     
@@ -103,12 +107,30 @@ struct ContentView: View {
                     } label: {
                         Text(isWarpSpeed ? "Stop" : "Engage")
                     }
+                    
+                    Divider()
+                    
+                    Text("Offset")
+                        .onTapGesture {
+                            withAnimation {
+                                starFieldOffset.x = 0.5
+                                starFieldOffset.y = 0.5
+                            }
+                        }
+                    Slider(value: $starFieldOffset.x, in: 0...1.0) {
+                        Text(String(format: "x: %.2f", starFieldOffset.x))
+                            .textSelection(.enabled)
+                    }
+                    Slider(value: $starFieldOffset.y, in: 0...1.0) {
+                        Text(String(format: "y: %.2f", starFieldOffset.y))
+                            .textSelection(.enabled)
+                    }
                 }
                 .padding()
                 .frame(maxWidth: 240)
                 .background(RoundedRectangle(cornerSize: .init(width: 8, height: 8)).foregroundStyle(.ultraThickMaterial))
                 .padding()
-                .transition( showControls ? .move(edge: .trailing) : .scale)
+                .transition(.opacity)
             }
         }
         .toolbar {
