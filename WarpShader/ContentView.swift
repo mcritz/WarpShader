@@ -9,13 +9,38 @@ import SwiftUI
 
 struct ContentView: View {
     // Warp Effect
-    @State private var speed: Double = 0.1
-    @State private var fov: Double = 2.0
-    @State private var tails: Double = 0.1
+    @State private var speed: Double = 0.0
+    @State private var fov: Double = 0.92
+    @State private var bifrost: Double = 1.1
+    @State private var tails: Double = 0.52
     
     // App UI
     @State private var isWarpSpeed = false
-    @State private var showControls = true
+    @State private var showControls = false
+    @State private var starFieldOffset = CGPoint(x: 0.0, y: 0.0)
+    
+    func toggleWarpSpeed() {
+        if isWarpSpeed {
+            withAnimation(.easeInOut(duration: 2.3)) {
+                fov = 0.92
+                bifrost = 1.1
+                tails = 0.52
+            }
+            withAnimation(.easeOut(duration: 0.7)) {
+                speed   = 0.0
+            }
+        } else {
+            withAnimation(.easeInOut(duration: 2.3)) {
+                fov = 0.46
+                bifrost = 0.74
+                tails = 3.5
+            }
+            withAnimation(.easeOut(duration: 0.7)) {
+                speed   = 1.75
+            }
+        }
+        isWarpSpeed.toggle()
+    }
     
     let startTime = Date.now
     var body: some View {
@@ -29,7 +54,9 @@ struct ContentView: View {
                             .float2(geometryProxy.size),
                             .float(speed), // zippity-zoom!
                             .float(fov), // More like “Z-space depth modifier”
-                            .float(tails) // rainbows
+                            .float(bifrost), // “bifrost” rainbow separation
+                            .float(tails), // star streak length
+                            .float2(starFieldOffset)
                         ))
                 }
             }
@@ -54,6 +81,15 @@ struct ContentView: View {
                     Divider()
                     
                     HStack {
+                        Text("Bifröst")
+                        Spacer()
+                        Text(bifrost.formatted())
+                    }
+                    Slider(value: $bifrost, in: 0.0...2.0)
+                    
+                    Divider()
+                    
+                    HStack {
                         Text("Tails")
                         Spacer()
                         Text(tails.formatted())
@@ -63,16 +99,9 @@ struct ContentView: View {
                     Divider()
                     
                     Button {
-                        withAnimation(.easeInOut(duration: 2.3)) {
-                            fov     = isWarpSpeed ? 2.0 : 0.5
-                            tails   = isWarpSpeed ? 0.1 : 3.0
-                        }
-                        withAnimation(.easeOut(duration: 0.7)) {
-                            speed   = isWarpSpeed ? 0.1 : 1.25
-                        }
-                        isWarpSpeed.toggle()
+                        toggleWarpSpeed()
                     } label: {
-                        Text(isWarpSpeed ? "Impulse" : "Engage")
+                        Text(isWarpSpeed ? "Stop" : "Engage")
                     }
                 }
                 .padding()
@@ -84,16 +113,9 @@ struct ContentView: View {
         }
         .toolbar {
             Button {
-                withAnimation(.bouncy(duration: 2.3)) {
-                    fov     = isWarpSpeed ? 2.0 : 0.5
-                    tails   = isWarpSpeed ? 0.1 : 3.0
-                }
-                withAnimation(.easeOut(duration: 0.7)) {
-                    speed   = isWarpSpeed ? 0.1 : 1.25
-                }
-                isWarpSpeed.toggle()
+                toggleWarpSpeed()
             } label: {
-                Text(isWarpSpeed ? "Impulse" : "Engage")
+                Text(isWarpSpeed ? "Stop" : "Engage")
             }
             Button {
                 withAnimation(.easeOut(duration: 0.2)) {

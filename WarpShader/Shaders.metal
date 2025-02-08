@@ -21,7 +21,9 @@ struct FS_UNIFORM
     float warp;
     float speed;
     float fov;
+    float bifrost;
     float tail_length;
+    float2 offset;
 };
 
 constant float GAMMA = 2.2;
@@ -47,15 +49,19 @@ float3 ToGamma(float3 col) {
 float4 interstellarFragment(FS_UNIFORM uniforms) {
     float3 ray;
     ray.xy = 2.0 * (uniforms.position - uniforms.resolution * 0.5) / uniforms.resolution.x;
+//    ray.x += 1.0 - uniforms.offset.x * 2.0;
+//    ray.y -= 1.0 - uniforms.offset.y * 2.0;
     ray.z = uniforms.warp;
     
     float offset = uniforms.time * uniforms.speed;
     float speed2 = 1.89 * uniforms.speed;
+//    float speed2 = uniforms.tail_length * uniforms.speed;
     float speed = uniforms.tail_length + 0.1;
     offset *= 1.5;
     
     float3 col = float3(0);
-    float3 stp = ray/max(abs(ray.x), abs(ray.y));
+//    float3 stp = ray/max(abs(ray.x), abs(ray.y));
+    float3 stp = (uniforms.speed == 0) ? ray / 1.0 : (ray / max(abs(ray.x), abs(ray.y)));
     float3 pos = 2.0 * stp + 0.5;
     
     for (int i = 0; i < 20; i++) {
@@ -73,14 +79,14 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
             z = Noise(int2(pos.xy)).x * 7.32;
         }
         
-        float offsetBravo = (i % 2 == 0 ? offset * 0.7 : offset);
+        float offsetBravo = (i % 2 == 0 ? offset * uniforms.bifrost : offset);
         z = fract(z - offsetBravo);
         float d = 50.0 * z - pos.z;
         float w = pow(max(0.0, 1.0 - 8.0 * length(fract(pos.xy) - 0.5)), 2.0);
         float3 c = max(float3(0),
-                      float3(1.0 - abs(d + speed2 * 0.5) / speed,
+                      float3(1.0 - abs(d + speed2 * uniforms.bifrost) / speed,
                             1.0 - abs(d) / speed,
-                            1.0 - abs(d - speed2 * 0.5) / speed));
+                            1.0 - abs(d - speed2 * uniforms.bifrost) / speed));
         
         col += 1.5 * (1.0 - z) * c * w;
         pos += stp;
@@ -95,7 +101,10 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
                                 float2 size,
                                 float speed,
                                 float fov,
-                                float tail_length) {
+                                float bifrost,
+                                float tail_length,
+                                float2 offset
+                                ) {
     FS_UNIFORM uniforms;
     uniforms.time = time;
     uniforms.position = position;
@@ -103,6 +112,8 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
     uniforms.speed = speed;
     uniforms.warp = fov;
     uniforms.tail_length = tail_length;
+    uniforms.offset = offset;
+    uniforms.bifrost = bifrost;
     float4 outColor = interstellarFragment(uniforms);
     return half4(outColor);
 }
