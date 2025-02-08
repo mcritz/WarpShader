@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     // Warp Effect
+    @State private var starScale: Double = 0.0
     @State private var speed: Double = 0.0
     @State private var fov: Double = 0.92
     @State private var bifrost: Double = 1.1
@@ -22,21 +23,23 @@ struct ContentView: View {
     func toggleWarpSpeed() {
         if isWarpSpeed {
             withAnimation(.easeInOut(duration: 2.3)) {
-                fov = 0.92
-                tails = 0.52
-                bifrost = 1.1
+                fov = 1.9
+                tails = 0.1
+                bifrost = 0.25
             }
             withAnimation(.easeOut(duration: 0.7)) {
-                speed   = 0.0
+                speed = 0.03
+                starScale = 0.0
             }
         } else {
             withAnimation(.easeInOut(duration: 2.3)) {
-                fov = 0.46
-                tails = 3.5
-                bifrost = 0.74
+                fov = 0.8
+                tails = 2.0
+                bifrost = 1.0
             }
             withAnimation(.easeOut(duration: 0.7)) {
-                speed   = 1.75
+                speed = 0.9
+                starScale = 3.0
             }
         }
         isWarpSpeed.toggle()
@@ -45,9 +48,24 @@ struct ContentView: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             Rectangle()
-                .warp(speed: speed, fov: fov, bifrost: bifrost, tails: tails, starFieldOffset: starFieldOffset)
+                .warp(
+                    starScale: starScale,
+                    speed: speed,
+                    fov: fov,
+                    bifrost: bifrost,
+                    tails: tails,
+                    starFieldOffset: starFieldOffset
+                )
             if showControls {
                 VStack {
+                    HStack {
+                        Text("Star Scale")
+                        Spacer()
+                        Text(starScale.formatted())
+                            .textSelection(.enabled)
+                    }
+                    Slider(value: $starScale, in: 0...5)
+                    
                     HStack {
                         Text("Speed")
                         Spacer()
@@ -91,7 +109,7 @@ struct ContentView: View {
                     Button {
                         toggleWarpSpeed()
                     } label: {
-                        Text(isWarpSpeed ? "Stop" : "Engage")
+                        Text(isWarpSpeed ? "Impulse" : "Engage")
                     }
                     
                     Divider()
@@ -123,7 +141,7 @@ struct ContentView: View {
             Button {
                 toggleWarpSpeed()
             } label: {
-                Text(isWarpSpeed ? "Stop" : "Engage")
+                Text(isWarpSpeed ? "Impulse" : "Engage")
             }
             Button {
                 withAnimation(.easeOut(duration: 0.2)) {

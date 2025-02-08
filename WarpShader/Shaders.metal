@@ -18,6 +18,7 @@ struct FS_UNIFORM
     float2 position;
     float time;
     float2 resolution;
+    float star_scale;
     float warp;
     float speed;
     float fov;
@@ -59,7 +60,8 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
     offset *= 1.5;
     
     float3 col = float3(0);
-    float3 stp = (uniforms.speed == 0) ? ray / 1.0 : (ray / max(abs(ray.x), abs(ray.y)));
+//    float3 stp = (uniforms.speed == 0) ? ray * 4.0 : (ray / max(abs(ray.x), abs(ray.y)));
+    float3 stp = ((uniforms.star_scale <= 0) && uniforms.speed == 0) ? ray * 4.0 : ray / max(abs(ray.x), abs(ray.y));
     float3 pos = 2.0 * stp + 0.5;
     
     for (int i = 0; i < 20; i++) {
@@ -79,8 +81,8 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
         
         float offsetBravo = (i % 2 == 0 ? offset * uniforms.bifrost : offset);
         z = fract(z - offsetBravo);
-        float d = 50.0 * z - pos.z;
-        float w = pow(max(0.0, 1.0 - 8.0 * length(fract(pos.xy) - 0.5)), 2.0);
+        float d = 80 * z - pos.z;
+        float w = pow(max(0.0, 1.0 - 10.0 * length(fract(pos.xy) - 0.5)), ( (5 - uniforms.star_scale) / uniforms.bifrost) );
         float3 c = max(float3(0),
                       float3(1.0 - abs(d + speed2 * uniforms.bifrost) / speed,
                             1.0 - abs(d) / speed,
@@ -97,6 +99,7 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
                                 half4 color,
                                 float time,
                                 float2 size,
+                                float star_scale,
                                 float speed,
                                 float fov,
                                 float bifrost,
@@ -107,6 +110,7 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
     uniforms.time = time;
     uniforms.position = position;
     uniforms.resolution = size;
+    uniforms.star_scale = star_scale;
     uniforms.speed = speed;
     uniforms.warp = fov;
     uniforms.tail_length = tail_length;
