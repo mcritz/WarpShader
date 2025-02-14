@@ -65,20 +65,20 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
     float3 pos = 2.0 * stp + 0.5;
     
     for (int i = 0; i < 20; i++) {
-        float z;
-        if (i % 2 == 0) {
-            z = Noise(int2(pos.xy)).y * 11.0;
-            offset += 5.0;
-        } else if (i % 3 == 0) {
-            z = Noise(int2(pos.yx)).y * 5.0;
-            offset += 2.0;
-        } else if (i % 5 == 0) {
-            z = Noise(int2(pos.yx)).x * 21.0;
-            offset += 1.0;
-        } else {
-            z = Noise(int2(pos.xy)).x * 7.32;
-        }
-        
+        float z = Noise(int2(pos.xy)).x * 7.32;
+//        if (i % 2 == 0) {
+//            z = Noise(int2(pos.xy)).y * 11.0;
+//            offset += 5.0;
+//        } else if (i % 3 == 0) {
+//            z = Noise(int2(pos.yx)).y * 5.0;
+//            offset += 2.0;
+//        } else if (i % 5 == 0) {
+//            z = Noise(int2(pos.yx)).x * 21.0;
+//            offset += 1.0;
+//        } else {
+//            z = Noise(int2(pos.xy)).x * 7.32;
+//        }
+//        
         float offsetBravo = (i % 2 == 0 ? offset * uniforms.bifrost : offset);
         z = fract(z - offsetBravo);
         float d = 80 * z - pos.z;
@@ -94,6 +94,7 @@ float4 interstellarFragment(FS_UNIFORM uniforms) {
     
     return float4(ToGamma(col), 1.0);
 }
+
 
 [[ stitchable ]] half4 starWarp(float2 position,
                                 half4 color,

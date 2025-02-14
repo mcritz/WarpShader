@@ -6,17 +6,21 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXFileReference section */
-		0F6C135F2D4D79B9006B6E54 /* WarpShader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarpShader.app; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
+/* Begin PBXBuildFile section */
+		0FFA77CE2D591D510023D23E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FFA77C82D591D510023D23E /* Assets.xcassets */; };
+		0FFA77CF2D591D510023D23E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FFA77CA2D591D510023D23E /* Preview Assets.xcassets */; };
+		0FFA77D02D591D510023D23E /* WarpShaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA77CD2D591D510023D23E /* WarpShaderApp.swift */; };
+		0FFA77D12D591D510023D23E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFA77C92D591D510023D23E /* ContentView.swift */; };
+/* End PBXBuildFile section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		0F6C13612D4D79B9006B6E54 /* WarpShader */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WarpShader;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
+/* Begin PBXFileReference section */
+		0F6C135F2D4D79B9006B6E54 /* WarpShaderExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarpShaderExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FFA77C82D591D510023D23E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0FFA77C92D591D510023D23E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0FFA77CA2D591D510023D23E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0FFA77CC2D591D510023D23E /* WarpShader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WarpShader.entitlements; sourceTree = "<group>"; };
+		0FFA77CD2D591D510023D23E /* WarpShaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarpShaderApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0F6C135C2D4D79B9006B6E54 /* Frameworks */ = {
@@ -32,7 +36,7 @@
 		0F6C13562D4D79B9006B6E54 = {
 			isa = PBXGroup;
 			children = (
-				0F6C13612D4D79B9006B6E54 /* WarpShader */,
+				0FFA77C72D591D2E0023D23E /* WarpShaderExample */,
 				0F6C13602D4D79B9006B6E54 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,17 +44,37 @@
 		0F6C13602D4D79B9006B6E54 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0F6C135F2D4D79B9006B6E54 /* WarpShader.app */,
+				0F6C135F2D4D79B9006B6E54 /* WarpShaderExample.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0FFA77C72D591D2E0023D23E /* WarpShaderExample */ = {
+			isa = PBXGroup;
+			children = (
+				0FFA77C82D591D510023D23E /* Assets.xcassets */,
+				0FFA77C92D591D510023D23E /* ContentView.swift */,
+				0FFA77CB2D591D510023D23E /* Preview Content */,
+				0FFA77CC2D591D510023D23E /* WarpShader.entitlements */,
+				0FFA77CD2D591D510023D23E /* WarpShaderApp.swift */,
+			);
+			path = WarpShaderExample;
+			sourceTree = "<group>";
+		};
+		0FFA77CB2D591D510023D23E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				0FFA77CA2D591D510023D23E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0F6C135E2D4D79B9006B6E54 /* WarpShader */ = {
+		0F6C135E2D4D79B9006B6E54 /* WarpShaderExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0F6C136E2D4D79BA006B6E54 /* Build configuration list for PBXNativeTarget "WarpShader" */;
+			buildConfigurationList = 0F6C136E2D4D79BA006B6E54 /* Build configuration list for PBXNativeTarget "WarpShaderExample" */;
 			buildPhases = (
 				0F6C135B2D4D79B9006B6E54 /* Sources */,
 				0F6C135C2D4D79B9006B6E54 /* Frameworks */,
@@ -60,14 +84,14 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				0F6C13612D4D79B9006B6E54 /* WarpShader */,
-			);
-			name = WarpShader;
+			name = WarpShaderExample;
 			packageProductDependencies = (
+				0FFA77D32D591DC40023D23E /* WarpShader */,
+				0FFA77D62D591EE00023D23E /* WarpShader */,
+				0FFA77DA2D591FCC0023D23E /* WarpShader */,
 			);
 			productName = WarpShader;
-			productReference = 0F6C135F2D4D79B9006B6E54 /* WarpShader.app */;
+			productReference = 0F6C135F2D4D79B9006B6E54 /* WarpShaderExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -82,10 +106,11 @@
 				TargetAttributes = {
 					0F6C135E2D4D79B9006B6E54 = {
 						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
-			buildConfigurationList = 0F6C135A2D4D79B9006B6E54 /* Build configuration list for PBXProject "WarpShader" */;
+			buildConfigurationList = 0F6C135A2D4D79B9006B6E54 /* Build configuration list for PBXProject "WarpShaderExample" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -94,12 +119,14 @@
 			);
 			mainGroup = 0F6C13562D4D79B9006B6E54;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0F6C13602D4D79B9006B6E54 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0F6C135E2D4D79B9006B6E54 /* WarpShader */,
+				0F6C135E2D4D79B9006B6E54 /* WarpShaderExample */,
 			);
 		};
 /* End PBXProject section */
@@ -109,6 +136,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FFA77CE2D591D510023D23E /* Assets.xcassets in Resources */,
+				0FFA77CF2D591D510023D23E /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FFA77D02D591D510023D23E /* WarpShaderApp.swift in Sources */,
+				0FFA77D12D591D510023D23E /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,10 +275,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = WarpShader/WarpShader.entitlements;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = WarpShaderExample/WarpShader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"WarpShader/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"WarpShaderExample/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -270,6 +302,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				XROS_DEPLOYMENT_TARGET = 2.2;
@@ -281,10 +314,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = WarpShader/WarpShader.entitlements;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = WarpShaderExample/WarpShader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"WarpShader/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"WarpShaderExample/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -316,7 +350,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0F6C135A2D4D79B9006B6E54 /* Build configuration list for PBXProject "WarpShader" */ = {
+		0F6C135A2D4D79B9006B6E54 /* Build configuration list for PBXProject "WarpShaderExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0F6C136C2D4D79BA006B6E54 /* Debug */,
@@ -325,7 +359,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0F6C136E2D4D79BA006B6E54 /* Build configuration list for PBXNativeTarget "WarpShader" */ = {
+		0F6C136E2D4D79BA006B6E54 /* Build configuration list for PBXNativeTarget "WarpShaderExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0F6C136F2D4D79BA006B6E54 /* Debug */,
@@ -335,6 +369,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0FFA77D32D591DC40023D23E /* WarpShader */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WarpShader;
+		};
+		0FFA77D62D591EE00023D23E /* WarpShader */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WarpShader;
+		};
+		0FFA77DA2D591FCC0023D23E /* WarpShader */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WarpShader;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0F6C13572D4D79B9006B6E54 /* Project object */;
 }
