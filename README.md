@@ -4,10 +4,7 @@ This is a Metal shader example for SwiftUI based on “Hazel Quantock” / “Te
 
 ## Installation
 
-Until I publish as a Package the easiest installation is to copy these files to your project:
-
-- Shaders.metal
-- Warp.swift
+Add WarpShader as a package dependency by either using Xcode > File > Add Package Dependencies… and choosing this repo. Or by adding this package to the dependencies list if you’re using a Swift Package file directly. 
 
 ## Usage
 
@@ -34,7 +31,3 @@ SomeView()
 I highly recommend building the included app, clicking the “Controls” button, and finding values you find most pleasing.
 
 Animating between warp parameters leads to many interesting results that may seem familiar.
-
-## TODO
-
-- [ ] Publish as a Swift Package 
