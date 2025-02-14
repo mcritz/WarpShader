@@ -28,6 +28,6 @@ SomeView()
     )
 ```
 
-I highly recommend building the included app, clicking the “Controls” button, and finding values you find most pleasing.
+I highly recommend building the included app, WarpShaderExample, clicking the “Controls” button, and finding values you find most pleasing. To build the app from this repo, chooseo the `WarpShaderExample` target then ‘Run’.
 
 Animating between warp parameters leads to many interesting results that may seem familiar.
