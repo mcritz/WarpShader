@@ -2,6 +2,8 @@
 
 This is a Metal shader example for SwiftUI based on “Hazel Quantock” / “TekF” from this code: https://www.shadertoy.com/view/Xdl3D2
 
+![Image of a macOS app of a colorful star field](./Assets/WarpEffect.jpg)
+
 ## Installation
 
 Add WarpShader as a package dependency by either using Xcode > File > Add Package Dependencies… and choosing this repo. Or by adding this package to the dependencies list if you’re using a Swift Package file directly. 

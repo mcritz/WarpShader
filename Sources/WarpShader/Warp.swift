@@ -16,7 +16,7 @@ struct Warp: ViewModifier {
     var tails: Double = 0.52
     var starFieldOffset = CGPoint(x: 0.5, y: 0.5)
     
-    let starWarp: ShaderFunction
+    let starWarp = ShaderFunction.starWarp
     
     let startTime = Date.now
     
@@ -34,13 +34,6 @@ struct Warp: ViewModifier {
         self.bifrost = bifrost
         self.tails = tails
         self.starFieldOffset = starFieldOffset
-        
-        self.starWarp = {
-            let url = Bundle.module.url(forResource: "default", withExtension: "metallib")!
-            let shaderLibrary = ShaderLibrary(url: url)
-            let shaderFunction = ShaderFunction(library: shaderLibrary, name: "starWarp")
-            return shaderFunction
-        }()
     }
 
 

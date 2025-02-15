@@ -18,11 +18,49 @@ struct ContentView: View {
     @State private var starFieldOffset = CGPoint(x: 0.5, y: 0.5)
     
     // App UI
-    @State private var isWarpSpeed = false
+    @State private var warpEffect: WarpEffect = .stopped
     @State private var showControls = false
     
-    func toggleWarpSpeed() {
-        if isWarpSpeed {
+    private enum WarpEffect: String, CaseIterable, CustomStringConvertible, Identifiable {
+        var id: String { description }
+        case stopped
+        case impulse
+        case fasterThanLight
+        case warpSpeed
+        case tardis
+        case plaid
+        
+        var description: String {
+            switch self {
+            case .stopped:
+                "Stopped"
+            case .impulse:
+                "Impulse"
+            case .fasterThanLight:
+                "Faster Than Light"
+            case .warpSpeed:
+                "Warp Speed"
+            case .tardis:
+                "Tardis"
+            case .plaid:
+                "Plaid"
+            }
+        }
+    }
+    
+    private func setWarp(_ effect: WarpEffect) {
+        switch effect {
+        case .stopped:
+            withAnimation(.easeInOut(duration: 0.5)) {
+                bifrost = 1.1
+                tails = 0.0
+                fov = 1.9
+            }
+            withAnimation {
+                starScale = 0.001
+                speed = 0.0
+            }
+        case .impulse:
             withAnimation(.easeInOut(duration: 2.3)) {
                 fov = 1.9
                 tails = 0.1
@@ -32,7 +70,17 @@ struct ContentView: View {
                 speed = 0.03
                 starScale = 0.0
             }
-        } else {
+        case .fasterThanLight:
+            withAnimation(.easeInOut(duration: 2.3)) {
+                fov = 1.8
+                tails = 2.0
+                bifrost = 0.3
+            }
+            withAnimation(.easeOut(duration: 0.7)) {
+                speed = 0.4
+                starScale = 3.0
+            }
+        case .warpSpeed:
             withAnimation(.easeInOut(duration: 2.3)) {
                 fov = 0.8
                 tails = 2.0
@@ -42,8 +90,27 @@ struct ContentView: View {
                 speed = 0.9
                 starScale = 3.0
             }
+        case .tardis:
+            withAnimation(.easeInOut(duration: 2.3)) {
+                fov = 1.8
+                tails = 4.5
+                bifrost = 1.5
+            }
+            withAnimation(.easeOut(duration: 0.7)) {
+                speed = 0.7
+                starScale = 4.2
+            }
+        case .plaid:
+            withAnimation(.easeInOut(duration: 2.3)) {
+                fov = 0.6
+                tails = 1.0
+                bifrost = 2.0
+            }
+            withAnimation(.easeOut(duration: 0.7)) {
+                speed = 0.6
+                starScale = 5.0
+            }
         }
-        isWarpSpeed.toggle()
     }
     
     var body: some View {
@@ -107,14 +174,6 @@ struct ContentView: View {
                     
                     Divider()
                     
-                    Button {
-                        toggleWarpSpeed()
-                    } label: {
-                        Text(isWarpSpeed ? "Impulse" : "Engage")
-                    }
-                    
-                    Divider()
-                    
                     Text("Offset")
                         .onTapGesture {
                             withAnimation {
@@ -139,10 +198,14 @@ struct ContentView: View {
             }
         }
         .toolbar {
-            Button {
-                toggleWarpSpeed()
-            } label: {
-                Text(isWarpSpeed ? "Impulse" : "Engage")
+            Picker("Effect", selection: $warpEffect) {
+                ForEach(WarpEffect.allCases) { effect in
+                    Text(effect.description)
+                        .tag(effect)
+                }
+            }
+            .onChange(of: warpEffect) { oldValue, newValue in
+                setWarp(warpEffect)
             }
             Button {
                 withAnimation(.easeOut(duration: 0.2)) {
