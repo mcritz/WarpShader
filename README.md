@@ -1,6 +1,6 @@
 # WarpShader
 
-This is a Metal shader example for SwiftUI based on “Hazel Quantock” / “TekF” from this code: https://www.shadertoy.com/view/Xdl3D2
+Fast SwiftUI faster than light visual effect as a SwiftUI view modifier.
 
 ![Image of a macOS app of a colorful star field](./Assets/WarpEffect.jpg)
 
@@ -14,12 +14,16 @@ Example usage for SwiftUI is in `ContentView.swift`.
 
 Apply the `.warp()` view modifier to any view.
 
+## Acknowledgements
+
+This is based on work by “Hazel Quantock” / “TekF” from this code: https://www.shadertoy.com/view/Xdl3D2
+
 ## Customization
 
 The modifier has a good number of properties that can be customized.
 
 ```swift
-SomeView()
+Rectangle()
     .warp(
         starScale: starScale, // relative star size. Things get chonky around 3.5 or so
         speed: speed, // zippy zoom!
